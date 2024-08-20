@@ -1,6 +1,7 @@
 package com.automation.pages;
 
 import com.automation.utils.DriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -36,14 +37,18 @@ public class BasePage {
         actions.moveToElement(element).perform();
     }
 
-    public void handleOfferAlert(WebElement alert,WebElement cancelBtn) {
+    public void handleOfferAlert() {
         try {
-            driver.switchTo().alert();
+            DriverManager.setImplicitlyWait(0);
+            WebElement alert = driver.findElement(By.cssSelector(".wzrk-alert.wiz-show-animate"));
+            WebElement cancelBtn = driver.findElement(By.id("wzrk-cancel-id"));
+
             if (displayedElement(alert)) {
                 cancelBtn.click();
             }
         }catch (Exception e){
-            driver.switchTo().defaultContent();
+        }finally {
+            DriverManager.setImplicitlyWait(60);
         }
 
     }

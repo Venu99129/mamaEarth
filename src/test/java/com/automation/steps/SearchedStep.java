@@ -18,4 +18,14 @@ public class SearchedStep {
     public void theUserShouldVerifyThatAllProductsDisplayedAreUnderTheCategory() {
         Assert.assertTrue(searchedPage.verifyAllProductsInUnDerCategory());
     }
+
+    @Then("verify user in searched page {string}")
+    public void verifyUserInSearchedPage(String searchedText) {
+        Assert.assertEquals(searchedText,searchedPage.verifySearchedPage());
+    }
+
+    @Then("verify all products are matches searched {string}")
+    public void verifyAllProductsAreMatchesSearched(String productName) {
+        Assert.assertTrue(searchedPage.verifyAllProductsMatchesSearchedText(productName));
+    }
 }

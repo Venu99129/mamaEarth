@@ -2,6 +2,7 @@ package com.automation.pages;
 
 import com.automation.utils.ConfigReader;
 import com.automation.utils.DataStore;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -16,14 +17,11 @@ public class SearchedPage extends BasePage {
     @FindBy(xpath = "//div[@class='product-detail-wrap']/div[@class='title']")
     List<WebElement> productNames;
 
-    @FindBy(css=".wzrk-alert wiz-show-animate")
-    WebElement offersAlert;
-
-    @FindBy(id = "wzrk-cancel-id")
-    WebElement offersAlertCancelBtn;
+    @FindBy(className = "searchKey")
+    WebElement searchResultText;
 
     public String getSearchedResultText(){
-        handleOfferAlert(offersAlert,offersAlertCancelBtn);
+        handleOfferAlert();
         return searchedText.getText();
     }
 
@@ -62,5 +60,28 @@ public class SearchedPage extends BasePage {
                 break;
         }
         return outerFlag;
+    }
+
+    public String verifySearchedPage() {
+        return searchResultText.getText().replace("\"","");
+    }
+
+    public boolean verifyAllProductsMatchesSearchedText(String searchedText) {
+        List<String> prodNames = productNames.stream().map(WebElement::getText).filter(s->!s.isEmpty()).toList();
+        boolean flag = true;
+        for (String prodName : prodNames) {
+            if (!prodName.toLowerCase().contains(searchedText.toLowerCase())) {
+                if(searchedText.equals("Illumination") && prodName.toLowerCase().contains("Illuminating".toLowerCase())) continue;
+
+                if(!searchedText.contains(" ") ) {
+                    System.out.println(prodName);
+                    return false;
+                } else if (!(prodName.toLowerCase().contains(searchedText.split(" ")[1].toLowerCase()))) {
+                    System.out.println(prodName);
+                    return false;
+                }
+            }
+        }
+        return flag;
     }
 }

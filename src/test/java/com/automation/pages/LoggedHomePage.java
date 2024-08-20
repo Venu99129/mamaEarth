@@ -15,12 +15,6 @@ public class LoggedHomePage extends BasePage{
     @FindBy(xpath = "")
     WebElement element;
 
-    @FindBy(css=".wzrk-alert wiz-show-animate")
-    WebElement offersAlert;
-
-    @FindBy(id = "wzrk-cancel-id")
-    WebElement offersAlertCancelBtn;
-
     @FindBy(xpath = "//p[normalize-space()='Logout']")
     WebElement logoutLink;
 
@@ -45,7 +39,7 @@ public class LoggedHomePage extends BasePage{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        handleOfferAlert(offersAlert,offersAlertCancelBtn);
+        handleOfferAlert();
         userIcon.click();
     }
 

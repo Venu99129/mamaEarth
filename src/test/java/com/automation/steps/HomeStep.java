@@ -34,4 +34,9 @@ public class HomeStep {
     public void theUserClicksOnTheMenuItem(String item) {
         homePage.clickOnMenuItem(item);
     }
+
+    @When("user search in search bar {string}")
+    public void userSearchInSearchBar(String productName) {
+        homePage.searchSearchBar(productName);
+    }
 }

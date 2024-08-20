@@ -15,15 +15,6 @@ public class LoginPage extends BasePage{
     @FindBy(xpath = "//input[@placeholder='Mobile number']")
     WebElement mobileField;
 
-    @FindBy(id = "login-form-password")
-    WebElement passwordField;
-
-    @FindBy(css=".wzrk-alert wiz-show-animate")
-    WebElement offersAlert;
-
-    @FindBy( id = "wzrk-cancel-id")
-    WebElement offersAlertCancelBtn;
-
     @FindBy(xpath = "//button[@type='submit']")
     WebElement loginOTPBtn;
 
@@ -44,7 +35,7 @@ public class LoginPage extends BasePage{
 
     public void doLogin(String mobileNumber) {
         mobileField.sendKeys(ConfigReader.getConfigValue(mobileNumber));
-        //handleOfferAlert(offersAlert,offersAlertCancelBtn);
+        //handleOfferAlert();
         loginOTPBtn.click();
     }
 
