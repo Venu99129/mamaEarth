@@ -14,16 +14,18 @@ Feature: Menu Items Test Activity
       | Body     |
       | Baby     |
 
-  Scenario Outline: verify user can search for products and verifying searched products
+
+  Scenario Outline: Verify menu sub categories
     Given user open the mamaEarth website
-    When user search in search bar "<productName>"
-    Then verify user in searched page "<productName>"
-    Then verify all products are matches searched "<productName>"
+    Then user verify the user is on the home page
+    When user selects category type "<category>" and sub-category type "<sub-category>"
+    Then the user should be on the "<sub-category>" page
+    Then verify sub-product type "<sub-category>" of products are displayed
 
     Examples:
-      | productName  |
-      | Sunscreen    |
-      | Hair Serum   |
-      | Face Wash    |
-      | Illumination |
-      | Shampoo      |
+      | category | sub-category |
+      | Face     | Face Serum   |
+      | Hair     | Hair Oil     |
+      | Makeup   | Kajal        |
+      | Body     | Body Wash    |
+      | Baby     | Baby Shampoo |

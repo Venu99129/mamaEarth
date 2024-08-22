@@ -39,4 +39,31 @@ public class HomeStep {
     public void userSearchInSearchBar(String productName) {
         homePage.searchSearchBar(productName);
     }
+
+    @When("user click first product in bestsellers cart button")
+    public void userSelectsFirstProductInBestsellers() {
+        homePage.clickOnBestSellersFirstProduct();
+    }
+
+    @Then("verify with Success popUp")
+    public void verifyWithSuccessPopUp() {
+        Assert.assertTrue(homePage.verifyCartPop());
+    }
+
+    @When("user go to cart page")
+    public void userGoToCartPage() {
+        homePage.clickOnCartIcon();
+    }
+
+
+    @When("user selects category type {string} and sub-category type {string}")
+    public void userSelectsCategoryTypeAndSubCategoryType(String category, String subCategory) {
+        homePage.mouseOverOnMenuItem(category);
+        homePage.clickOnSubMenuItem(subCategory);
+    }
+
+    @When("user clicks on a product in the home page")
+    public void userClicksOnAProductInTheHomePage() {
+        homePage.userClicksOnAProduct();
+    }
 }

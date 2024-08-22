@@ -28,4 +28,9 @@ public class SearchedStep {
     public void verifyAllProductsAreMatchesSearched(String productName) {
         Assert.assertTrue(searchedPage.verifyAllProductsMatchesSearchedText(productName));
     }
+
+    @Then("verify sub-product type {string} of products are displayed")
+    public void verifySubProductTypeOfProductsAreDisplayed(String category) {
+        Assert.assertTrue(searchedPage.verifyAllProductsMatchesSearchedText(category));
+    }
 }

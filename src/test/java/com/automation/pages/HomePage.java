@@ -1,16 +1,26 @@
 package com.automation.pages;
 
 import com.automation.utils.ConfigReader;
-import com.automation.utils.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class HomePage extends BasePage {
 
     @FindBy(xpath = "//div[@class='categorytitle']")
     WebElement categoryTitle;
+
+    @FindBy(xpath ="//div[@class='categorytitle'][text()='Best Sellers']/../../following-sibling::div//div[@class='product-card-slide-desktop']//span[text()='Add To Cart']")
+    List<WebElement> bestSellerItemsAddToCart;
+
+    @FindBy(css = ".ct-toast.ct-toast-success")
+    WebElement cartPopUp;
+
+    @FindBy(className = "cart-icon")
+    WebElement cartIcon;
 
     @FindBy(xpath = "")
     WebElement element;
@@ -21,6 +31,10 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[@class='sc-iAyFgw jNwXbb user-account-trigger']/div[2]")
     WebElement userIconText;
 
+    @FindBy(xpath = "//div[@class='product-detail-wrap']/div")
+    List<WebElement> products;
+
+
 
     public void openTheBataWebsite() {
         driver.get(ConfigReader.getConfigValue("base.url"));
@@ -29,7 +43,6 @@ public class HomePage extends BasePage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
         handleOfferAlert();
     }
 
@@ -68,5 +81,48 @@ public class HomePage extends BasePage {
         driver.findElement(By.xpath("//div[@class='ShortSearchBar']/div[2]")).click();
         driver.findElement(By.xpath("//div[@class='ShortSearchBar']/input"))
                 .sendKeys(productName + Keys.ENTER);
+    }
+
+    public void clickOnBestSellersFirstProduct() {
+        for(WebElement addToCart : bestSellerItemsAddToCart){
+            if(displayedElement(addToCart)){
+                addToCart.click();
+                break;
+            }
+        }
+    }
+
+
+
+    public boolean verifyCartPop() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {}
+        return cartPopUp.isDisplayed();
+    }
+
+    public void clickOnCartIcon() {
+        cartIcon.click();
+    }
+
+    public void mouseOverOnMenuItem(String category) {
+        handleOfferAlert();
+        String itemXpath = "//li[@class='category']/a[text()='%s']";
+        WebElement menuItem = driver.findElement(By.xpath(String.format(itemXpath, category)));
+        mouseOverOn(menuItem);
+    }
+
+    public void clickOnSubMenuItem(String subCategory) {
+        String subMenuXpath = "//a[text()='%s']";
+        clickAnyway(driver.findElement(By.xpath(String.format(subMenuXpath,subCategory))));
+    }
+
+    public void userClicksOnAProduct() {
+        for(WebElement ele :products){
+            if(displayedElement(ele)) {
+                ele.click();
+                break;
+            }
+        }
     }
 }

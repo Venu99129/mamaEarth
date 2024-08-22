@@ -1,16 +1,14 @@
 package com.automation.pages;
 
 import com.automation.utils.DriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class BasePage {
 
     WebDriver driver;
+    JavascriptExecutor js;
 
     public boolean displayedElement(WebElement element){
         DriverManager.setImplicitlyWait(0);
@@ -24,17 +22,38 @@ public class BasePage {
         return false;
     }
 
+    public void jsClick(WebElement element){
+
+        js.executeScript("arguments[0].click();",element);
+    }
 
 
     public BasePage(){
         this.driver = DriverManager.getDriver();
+        js = (JavascriptExecutor) driver;
         PageFactory.initElements(driver,this);
     }
 
     public void mouseOverOn(WebElement element){
         Actions actions = new Actions(driver);
-
         actions.moveToElement(element).perform();
+    }
+
+    public void scrollWindow(int x , int y){
+        String script = "window.scrollTo(%s,%s)";
+        js.executeScript(String.format(script,x,y));
+        try {
+            Thread.sleep(2000);
+        }catch (Exception ignored){}
+    }
+
+    public boolean presentWithNonDisplay(WebElement element){
+        try{
+            element.isDisplayed();
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     public void handleOfferAlert() {
@@ -46,10 +65,17 @@ public class BasePage {
             if (displayedElement(alert)) {
                 cancelBtn.click();
             }
-        }catch (Exception e){
-        }finally {
+        } catch (Exception ignored) {
+        } finally {
             DriverManager.setImplicitlyWait(60);
         }
+
+    }
+
+    public void clickAnyway(WebElement element){
+        try {
+            if(element.isDisplayed()) element.click();
+        }catch (ElementNotInteractableException e2){jsClick(element);}
 
     }
 

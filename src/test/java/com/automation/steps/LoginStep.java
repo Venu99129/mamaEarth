@@ -24,4 +24,5 @@ public class LoginStep {
     public void enterOTPManually() {
         loginPage.waitUntilOTPEnter();
     }
+
 }
