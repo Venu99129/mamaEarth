@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="js/Chart.min.js"></script>
+<script type="text/javascript" src="js/moment.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/cucumber.css" type="text/css"/>
+<link rel="stylesheet" href="css/font-awesome.min.css"/>
+<link rel="shortcut icon" href="images/favicon.png"/>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // this will tell tablesorter to try looking for the data-value attribute
+    // if present, it'll sort by that instead
+    // otherwise, it'll sort by the text content of the table cell
+    $("#tablesorter").tablesorter({
+        textAttribute: 'data-value',
+        // ignores the first row of the header, the 'scenario', 'steps', since
+        // sorting those doesn't make sense
+        selectorHeaders: '> thead tr:not(.dont-sort) th',
+        // use a stable sort
+        sortStable: true
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+<title>Cucumber Reports (no 1) - Steps Overview</title>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top" id="navigation">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <p class="navbar-text navbar-left">Cucumber Report</p>
+      <ul class="nav navbar-nav navbar-right">
+                <li role="presentation" ><a href="overview-features.html">Features</a></li>
+        <li role="presentation" ><a href="overview-tags.html">Tags</a></li>
+        <li role="presentation"     class="active" ><a href="overview-steps.html">Steps</a></li>
+                <li role="presentation" ><a href="overview-failures.html">Failures</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container-fluid">
+  <div class="col-md-5 col-md-offset-1">
+    
+<table class="table table-bordered" id="build-info">
+  <thead>
+    <tr>
+      <th>Project</th>
+              <th>Number</th>
+            <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <td>FoundationCucumber</td>
+              <td>1</td>
+            <td>22 Aug 2024, 00:13</td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+  <div class="col-md-3 col-md-offset-2">
+      </div>
+</div>
+
+
+<div id="report-lead" class="container-fluid">
+  <div class="col-md-10 col-md-offset-1">
+    <h2>Steps Statistics</h2>
+          <p>The following graph shows step statistics for this build. Below list is based on results.
+ step does not provide information about result then is not listed below.
+ Additionally @Before and @After are not counted because they are part of the scenarios, not steps.</p>
+      </div>
+</div>
+
+<div class="container-fluid" id="report">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <table id="tablesorter" class="stats-table table-hover">
+
+        <thead>
+          <tr class="header">
+            <th>Implementation</th>
+            <th>Occurrences</th>
+            <th>Duration</th>
+            <th>Average</th>
+            <th>Ratio</th>
+          </tr>
+        </thead>
+
+        <tbody>
+                      <tr>
+              <td class="location">com.automation.steps.CartStep.clickOnAvailableOfferApplyBtn()</td>
+              <td>1</td>
+              <td class="duration" data-value="913528800">913ms</td>
+              <td class="duration" data-value="913528800">913ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.CartStep.verifyCartPage()</td>
+              <td>3</td>
+              <td class="duration" data-value="2431281100">2s 431ms</td>
+              <td class="duration" data-value="810427033">810ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.CartStep.verifyCouponAmountApplied()</td>
+              <td>1</td>
+              <td class="duration" data-value="130485300">130ms</td>
+              <td class="duration" data-value="130485300">130ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.CartStep.verifyCouponApplied()</td>
+              <td>1</td>
+              <td class="duration" data-value="10105904700">10s 105ms</td>
+              <td class="duration" data-value="10105904700">10s 105ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.CartStep.verifyProductVisibleInCartPage()</td>
+              <td>1</td>
+              <td class="duration" data-value="921940000">921ms</td>
+              <td class="duration" data-value="921940000">921ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.CartStep.verifySameVariantOfTheProductIsAddedIntoTheCart()</td>
+              <td>1</td>
+              <td class="duration" data-value="679260800">679ms</td>
+              <td class="duration" data-value="679260800">679ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.HomeStep.iShouldSeeTheLoggedOut()</td>
+              <td>1</td>
+              <td class="duration" data-value="20182500">020ms</td>
+              <td class="duration" data-value="20182500">020ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.HomeStep.i_click_on_the_user_icon()</td>
+              <td>1</td>
+              <td class="duration" data-value="5165152600">5s 165ms</td>
+              <td class="duration" data-value="5165152600">5s 165ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.HomeStep.i_open_the_mamaEarth_website()</td>
+              <td>19</td>
+              <td class="duration" data-value="215936051000">3m 35s 936ms</td>
+              <td class="duration" data-value="11365055315">11s 365ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.HomeStep.i_verify_the_user_is_on_home_page()</td>
+              <td>14</td>
+              <td class="duration" data-value="320126300">320ms</td>
+              <td class="duration" data-value="22866164">022ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.HomeStep.theUserClicksOnTheMenuItem(java.lang.String)</td>
+              <td>5</td>
+              <td class="duration" data-value="755414700">755ms</td>
+              <td class="duration" data-value="151082940">151ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.HomeStep.userClicksOnAProductInTheHomePage()</td>
+              <td>2</td>
+              <td class="duration" data-value="581766100">581ms</td>
+              <td class="duration" data-value="290883050">290ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.HomeStep.userGoToCartPage()</td>
+              <td>1</td>
+              <td class="duration" data-value="91629600">091ms</td>
+              <td class="duration" data-value="91629600">091ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.HomeStep.userSearchInSearchBar(java.lang.String)</td>
+              <td>5</td>
+              <td class="duration" data-value="2516422500">2s 516ms</td>
+              <td class="duration" data-value="503284500">503ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.HomeStep.userSelectsCategoryTypeAndSubCategoryType(java.lang.String,java.lang.String)</td>
+              <td>5</td>
+              <td class="duration" data-value="61389278700">1m 1s 389ms</td>
+              <td class="duration" data-value="12277855740">12s 277ms</td>
+              <td class="failed">80.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.HomeStep.userSelectsFirstProductInBestsellers()</td>
+              <td>1</td>
+              <td class="duration" data-value="378091300">378ms</td>
+              <td class="duration" data-value="378091300">378ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.HomeStep.verifyWithSuccessPopUp()</td>
+              <td>1</td>
+              <td class="duration" data-value="238601900">238ms</td>
+              <td class="duration" data-value="238601900">238ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.Hooks.cleanUp(io.cucumber.java.Scenario)</td>
+              <td>19</td>
+              <td class="duration" data-value="5928655000">5s 928ms</td>
+              <td class="duration" data-value="312034473">312ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.Hooks.setUp(io.cucumber.java.Scenario)</td>
+              <td>19</td>
+              <td class="duration" data-value="32581150500">32s 581ms</td>
+              <td class="duration" data-value="1714797394">1s 714ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.LoggedHomeStep.iMouseOverOnTheUserIcon()</td>
+              <td>1</td>
+              <td class="duration" data-value="169821400">169ms</td>
+              <td class="duration" data-value="169821400">169ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.LoggedHomeStep.i_select_logout()</td>
+              <td>1</td>
+              <td class="duration" data-value="235228000">235ms</td>
+              <td class="duration" data-value="235228000">235ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.LoggedHomeStep.i_should_be_logged_in_successfully()</td>
+              <td>1</td>
+              <td class="duration" data-value="849093100">849ms</td>
+              <td class="duration" data-value="849093100">849ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.LoginStep.enterOTPManually()</td>
+              <td>1</td>
+              <td class="duration" data-value="11131133600">11s 131ms</td>
+              <td class="duration" data-value="11131133600">11s 131ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.LoginStep.i_log_in_with_email_and_password(java.lang.String)</td>
+              <td>1</td>
+              <td class="duration" data-value="269775600">269ms</td>
+              <td class="duration" data-value="269775600">269ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.LoginStep.i_should_see_the_login_page()</td>
+              <td>1</td>
+              <td class="duration" data-value="258620800">258ms</td>
+              <td class="duration" data-value="258620800">258ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.ProductStep.clicksOnAddToCartButton()</td>
+              <td>2</td>
+              <td class="duration" data-value="4539698400">4s 539ms</td>
+              <td class="duration" data-value="2269849200">2s 269ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.ProductStep.clicksOnAddToCartButtonProductPage()</td>
+              <td>2</td>
+              <td class="duration" data-value="152197000">152ms</td>
+              <td class="duration" data-value="76098500">076ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.ProductStep.userSelectsTheVariant()</td>
+              <td>1</td>
+              <td class="duration" data-value="2146095700">2s 146ms</td>
+              <td class="duration" data-value="2146095700">2s 146ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.ProductStep.verifyUserIsOnProductDescriptionPage()</td>
+              <td>2</td>
+              <td class="duration" data-value="2486738100">2s 486ms</td>
+              <td class="duration" data-value="1243369050">1s 243ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.SearchedStep.theUserShouldBeOnThePage(java.lang.String)</td>
+              <td>10</td>
+              <td class="duration" data-value="3816098600">3s 816ms</td>
+              <td class="duration" data-value="381609860">381ms</td>
+              <td class="failed">90.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.SearchedStep.theUserShouldVerifyThatAllProductsDisplayedAreUnderTheCategory()</td>
+              <td>5</td>
+              <td class="duration" data-value="27513308500">27s 513ms</td>
+              <td class="duration" data-value="5502661700">5s 502ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.SearchedStep.verifyAllProductsAreMatchesSearched(java.lang.String)</td>
+              <td>5</td>
+              <td class="duration" data-value="869154400">869ms</td>
+              <td class="duration" data-value="173830880">173ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.SearchedStep.verifySubProductTypeOfProductsAreDisplayed(java.lang.String)</td>
+              <td>5</td>
+              <td class="duration" data-value="19104136900">19s 104ms</td>
+              <td class="duration" data-value="3820827380">3s 820ms</td>
+              <td class="failed">60.00%</td>
+            </tr>
+                      <tr>
+              <td class="location">com.automation.steps.SearchedStep.verifyUserInSearchedPage(java.lang.String)</td>
+              <td>5</td>
+              <td class="duration" data-value="9178339100">9s 178ms</td>
+              <td class="duration" data-value="1835667820">1s 835ms</td>
+              <td class="passed">100.00%</td>
+            </tr>
+                  </tbody>
+
+        <tfoot class="total">
+          <tr>
+            <td>34</td>
+            <td>144</td>
+            <td class="duration">7m 3s 804ms</td>
+            <td class="duration">2s 943ms</td>
+            <td>Totals</td>
+          </tr>
+        </tfoot>
+
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<nav class="navbar navbar-default" id="footer">
+  <div class="container-fluid">
+    <p class="navbar-text navbar-right">
+        <small>generate Cucumber HTML reports via:&nbsp;</small>
+        <a class="navbar-link" href="https://github.com/jenkinsci/cucumber-reports-plugin">Jenkins Plugin</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/cucumber-reporting">Standalone</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/cucumber-sandwich">Sandwich</a> |
+        <a class="navbar-link" href="https://github.com/damianszczepanik/maven-cucumber-reporting">Maven</a>
+        &nbsp;&nbsp;
+    </p>
+  </div>
+</nav>
+
+</body>
+</html>
