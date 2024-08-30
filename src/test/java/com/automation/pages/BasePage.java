@@ -39,7 +39,7 @@ public class BasePage {
         actions.moveToElement(element).perform();
     }
 
-    public void scrollWindow(int x , int y){
+    public void scrollWindowOrSlide(int x , int y){
         String script = "window.scrollTo(%s,%s)";
         js.executeScript(String.format(script,x,y));
         try {
@@ -56,6 +56,7 @@ public class BasePage {
         }
     }
 
+  
     public void handleOfferAlert() {
         try {
             DriverManager.setImplicitlyWait(0);
@@ -72,7 +73,8 @@ public class BasePage {
 
     }
 
-    public void clickAnyway(WebElement element){
+  
+    public void clickAnyway(@org.jetbrains.annotations.NotNull WebElement element){
         try {
             if(element.isDisplayed()) element.click();
         }catch (ElementNotInteractableException e2){jsClick(element);}

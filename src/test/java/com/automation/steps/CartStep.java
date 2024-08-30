@@ -56,4 +56,9 @@ public class CartStep {
     public void userEntersValidAddressData() {
         cartPage.fillTheAddressDetails();
     }
+
+    @And("remove product from cart")
+    public void removeProductFromCart() {
+        cartPage.removeProduct();
+    }
 }

@@ -44,6 +44,9 @@ public class CartPage extends BasePage {
     @FindBy(xpath = "//i[@class='cart-icon']")
     WebElement cartIcon;
 
+    @FindBy(xpath = "//div[@class='minus-plus-icon'][contains(text(),'-')]")
+    WebElement minusBtn;
+
     @FindBy(className = "item-quantity")
     WebElement productQuantity;
 
@@ -185,5 +188,9 @@ public class CartPage extends BasePage {
         }
 
         jsClick(saveAddress);
+    }
+
+    public void removeProduct() {
+        minusBtn.click();
     }
 }

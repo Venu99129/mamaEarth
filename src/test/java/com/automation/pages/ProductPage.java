@@ -37,6 +37,15 @@ public class ProductPage extends BasePage {
     @FindBy(xpath = "//div[@class='variant-group']//div[@class='variant']")
     List<WebElement> unSelectedVariants;
 
+    @FindBy(xpath = "//div[contains(@class,'user-account-trigger isLoggedIn')]/div[1]")
+    WebElement userIcon;
+
+    @FindBy(xpath = "//div[contains(@class,'user-account-trigger isLoggedIn')]/div[2]")
+    WebElement userIconText;
+
+    @FindBy(xpath = "//p[normalize-space()='Logout']")
+    WebElement logoutLink;
+
     public boolean verifyUserIsOnProductDescriptionPage() {
         return productDescriptionText.isDisplayed() & productVariantText.isDisplayed();
     }
@@ -82,5 +91,13 @@ public class ProductPage extends BasePage {
                 productQuantity = Integer.parseInt(driver.findElement(By.xpath("//div[contains(@class,'qty-selector')]/span")).getText());
             }
         }else System.out.println("please give quantity minimum 1  !");
+    }
+
+    public void mouseOverOnUserIcon(){
+        mouseOverOn(userIcon);
+    }
+
+    public void clickOnLogOut(){
+        logoutLink.click();
     }
 }

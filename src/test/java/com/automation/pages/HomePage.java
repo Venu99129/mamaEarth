@@ -1,5 +1,6 @@
 package com.automation.pages;
 
+import com.automation.UI.HomeUi;
 import com.automation.utils.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class HomePage extends BasePage {
+public class HomePage extends BasePage implements HomeUi {
 
     @FindBy(xpath = "//div[@class='categorytitle']")
     WebElement categoryTitle;
@@ -25,10 +26,10 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "")
     WebElement element;
 
-    @FindBy(xpath = "//div[@class='sc-iAyFgw jNwXbb user-account-trigger']/div[1]")
+    @FindBy(xpath = "//div[contains(@class,'user-account-trigger')]/div[1]")
     WebElement userIcon;
 
-    @FindBy(xpath = "//div[@class='sc-iAyFgw jNwXbb user-account-trigger']/div[2]")
+    @FindBy(xpath = "//div[contains(@class,'user-account-trigger')]/div[2]")
     WebElement userIconText;
 
     @FindBy(xpath = "//div[@class='product-detail-wrap']/div")
@@ -36,8 +37,8 @@ public class HomePage extends BasePage {
 
 
 
-    public void openTheBataWebsite() {
-        driver.get(ConfigReader.getConfigValue("base.url"));
+    public void openTheMamaEarthWebsite() {
+        driver.navigate().to(ConfigReader.getConfigValue("base.url"));
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -47,7 +48,7 @@ public class HomePage extends BasePage {
     }
 
 
-    public boolean verifyISOnHomePage() {
+    public boolean verifyISOnHomeUi() {
         return categoryTitle.isDisplayed();
     }
 

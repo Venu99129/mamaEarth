@@ -35,4 +35,10 @@ public class ProductStep {
     public void userEnterSpecificQuantity(String qty) {
         productPage.selectGivenQuantity(qty);
     }
+
+    @When("user logout throw product page")
+    public void userLogoutThrowProductPage() {
+        productPage.mouseOverOnUserIcon();
+        productPage.clickOnLogOut();
+    }
 }
