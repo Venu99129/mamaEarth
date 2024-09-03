@@ -110,4 +110,18 @@ public class BaseScreen {
 
         ((AppiumDriver) driver).perform(Collections.singletonList(sequence));
     }
+
+    public void scrollWindow(){
+        int x = driver.manage().window().getSize().getWidth()/2;
+        int y = driver.manage().window().getSize().getHeight()/2;
+
+        scrollOrSwipe(x,y,x,y-500);
+    }
+
+    public double filterAmount(String amount){
+        if(amount.contains(",")) amount = amount.replace(",","");
+        if(amount.contains("-")) amount = amount.replace("-","");
+        if(amount.contains("₹")) amount = amount.replace("₹","");
+        return Double.parseDouble(amount);
+    }
 }

@@ -7,12 +7,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoggedHomeScreen extends BaseScreen implements LoggedHomeUi {
 
-    @FindBy(xpath = "//div[@class='categorytitle']")
-    WebElement categoryTitle;
-
-    @FindBy(xpath = "//android.widget.ImageView/following-sibling::android.view.ViewGroup[1]/android.widget.ImageView")
-    WebElement bergerMenu;
-
     @FindBy(xpath = "//div[contains(@class,'cart-trigger')]")
     WebElement cartIcon;
 

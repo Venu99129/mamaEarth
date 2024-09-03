@@ -1,5 +1,6 @@
 package com.automation.pages;
 
+import com.automation.UI.SearchedUi;
 import com.automation.utils.ConfigReader;
 import com.automation.utils.DataStore;
 import org.openqa.selenium.WebElement;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchedPage extends BasePage {
+public class SearchedPage extends BasePage implements SearchedUi {
 
     @FindBy(xpath = "//div[contains(@class,'banner-slider-wrapper')]/following-sibling::div/h1")
     WebElement searchedText;
@@ -50,7 +51,7 @@ public class SearchedPage extends BasePage {
                 if(prodName.contains(categoryProducts.get(i))){
                     break;
                 }
-                if (i == productNames.size() - 1) {
+                if (i == categoryProducts.size() - 1) {
                     System.out.println(categoryProducts.get(i));
                     inFlag = false;
                     break;
@@ -63,7 +64,7 @@ public class SearchedPage extends BasePage {
         return outerFlag;
     }
 
-    public String verifySearchedPage() {
+    public String verifySearchedUi() {
         return searchResultText.getText().replace("\"","");
     }
 

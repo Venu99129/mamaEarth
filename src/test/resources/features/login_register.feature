@@ -11,9 +11,3 @@ Feature: User Login and Logout
     When user mouse over on the user icon or burger menu
     And user select logout
     Then user should see the logged out
-
-  Scenario: User logs in and logs out successfully burger
-    Given user open the mamaEarth website
-    When user verify the user is on the home page
-    When user mouse over on the user icon or burger menu
-

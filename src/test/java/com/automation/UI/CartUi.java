@@ -1,8 +1,7 @@
 package com.automation.UI;
 
 public interface CartUi {
-    public double filterAmount(String amount);
-    public boolean verifyCartPage();
+    public boolean verifyCartUi();
     public void clickOnFirstCouponBtn();
     public boolean verifyCouponApplied();
     public boolean verifyCartAmountWithCouponAmount();

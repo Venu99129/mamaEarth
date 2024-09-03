@@ -1,12 +1,13 @@
 package com.automation.pages;
 
+import com.automation.UI.CartUi;
 import com.automation.utils.ConfigReader;
 import com.automation.utils.DriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import java.text.DecimalFormat;
 
-public class CartPage extends BasePage {
+public class CartPage extends BasePage implements CartUi {
 
     @FindBy(xpath = "//div[@class='step-container']/div[contains(text(),'Cart')]")
     WebElement cartText;
@@ -50,14 +51,8 @@ public class CartPage extends BasePage {
     @FindBy(className = "item-quantity")
     WebElement productQuantity;
 
-    public double filterAmount(String amount){
-        if(amount.contains(",")) amount = amount.replace(",","");
-        if(amount.contains("-")) amount = amount.replace("-","");
-        if(amount.contains("₹")) amount = amount.replace("₹","");
-        return Double.parseDouble(amount);
-    }
-
-    public boolean verifyCartPage() {
+    @Override
+    public boolean verifyCartUi() {
         return cartText.isDisplayed();
     }
 

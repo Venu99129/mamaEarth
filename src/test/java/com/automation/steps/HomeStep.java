@@ -2,6 +2,7 @@ package com.automation.steps;
 
 import com.automation.Screens.HomeScreen;
 import com.automation.UI.HomeUi;
+import com.automation.pages.HomePage;
 import com.automation.utils.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -12,7 +13,7 @@ public class HomeStep {
     HomeUi homeui;
 
     public HomeStep(){
-        if(ConfigReader.getConfigValue("running.platform").equals("web")) homeui = new HomeScreen();
+        if(ConfigReader.getConfigValue("running.platform").equals("web")) homeui = new HomePage();
         else homeui = new HomeScreen(); 
     }
 

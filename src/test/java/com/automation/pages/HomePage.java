@@ -38,12 +38,7 @@ public class HomePage extends BasePage implements HomeUi {
 
 
     public void openTheMamaEarthWebsite() {
-        driver.navigate().to(ConfigReader.getConfigValue("base.url"));
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        driver.get(ConfigReader.getConfigValue("base.url"));
         handleOfferAlert();
     }
 

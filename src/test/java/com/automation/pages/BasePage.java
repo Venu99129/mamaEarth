@@ -59,7 +59,7 @@ public class BasePage {
   
     public void handleOfferAlert() {
         try {
-            DriverManager.setImplicitlyWait(0);
+            DriverManager.setImplicitlyWait(5);
             WebElement alert = driver.findElement(By.cssSelector(".wzrk-alert.wiz-show-animate"));
             WebElement cancelBtn = driver.findElement(By.id("wzrk-cancel-id"));
 
@@ -73,6 +73,12 @@ public class BasePage {
 
     }
 
+    public double filterAmount(String amount){
+        if(amount.contains(",")) amount = amount.replace(",","");
+        if(amount.contains("-")) amount = amount.replace("-","");
+        if(amount.contains("₹")) amount = amount.replace("₹","");
+        return Double.parseDouble(amount);
+    }
   
     public void clickAnyway(@org.jetbrains.annotations.NotNull WebElement element){
         try {
