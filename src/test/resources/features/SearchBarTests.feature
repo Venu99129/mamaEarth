@@ -8,6 +8,7 @@ Feature: Search bar Functionality
   @web
   Scenario Outline: verify user can search for products and verifying searched products in web
     When user search in search bar "<productName>"
+    Then verify user in searched page "<productName>"
     Then verify all products are matches searched "<productName>"
 
     Examples:
