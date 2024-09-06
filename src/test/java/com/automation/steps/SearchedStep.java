@@ -1,8 +1,8 @@
 package com.automation.steps;
 
-import com.automation.Screens.SearchedScreen;
-import com.automation.UI.SearchedUi;
-import com.automation.pages.SearchedPage;
+import com.automation.pages.andriod.SearchedScreen;
+import com.automation.pages.ui.SearchedUi;
+import com.automation.pages.web.SearchedPage;
 import com.automation.utils.ConfigReader;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -19,6 +19,8 @@ public class SearchedStep {
     @Then("the user should be on the {string} page")
     public void theUserShouldBeOnThePage(String itemName) {
         if(itemName.equals("Face")) itemName = "Skin";
+        if(!searchedUi.getSearchedResultText().contains(itemName.trim()))
+            System.out.println("false "+searchedUi.getSearchedResultText());
         Assert.assertTrue(searchedUi.getSearchedResultText().contains(itemName));
     }
 

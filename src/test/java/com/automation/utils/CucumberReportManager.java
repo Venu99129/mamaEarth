@@ -18,8 +18,7 @@ public class CucumberReportManager {
 
     private static byte[] takeScreenShot(){
         TakesScreenshot ts = (TakesScreenshot) DriverManager.getDriver();
-        byte[] screenShot = ts.getScreenshotAs(OutputType.BYTES);
-        return screenShot;
+        return ts.getScreenshotAs(OutputType.BYTES);
     }
 
     public static void addaLog(String message){

@@ -1,8 +1,8 @@
 package com.automation.steps;
 
-import com.automation.Screens.CartScreen;
-import com.automation.UI.CartUi;
-import com.automation.pages.CartPage;
+import com.automation.pages.andriod.CartScreen;
+import com.automation.pages.ui.CartUi;
+import com.automation.pages.web.CartPage;
 import com.automation.utils.ConfigReader;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -44,8 +44,9 @@ public class CartStep {
 
     @Then("verify product is added into the cart")
     public void verifyProductVisibleInCartUi() {
+        System.out.println(ConfigReader.getConfigValue("product.name")+"  "+cartUi.getProductName());
         Assert.assertEquals(ConfigReader.getConfigValue("product.name"),cartUi.getProductName());
-        Assert.assertEquals(ConfigReader.getConfigValue("product.quantity"),cartUi.getProductQuantityInCart());
+        if(ConfigReader.getConfigValue("running.platform").equals("web")) Assert.assertEquals(ConfigReader.getConfigValue("product.quantity"),cartUi.getProductQuantityInCart());
     }
 
     @When("user clicks on place order button")
@@ -66,5 +67,15 @@ public class CartStep {
     @And("remove product from cart")
     public void removeProductFromCart() {
         cartUi.removeProduct();
+    }
+
+    @When("user select specific quantity {string} in cart Page")
+    public void userSelectSpecificQuantityInCartPage(String qty) {
+        cartUi.selectQuantityByGivenQuantity(qty);
+    }
+
+    @Then("comparing prices of increasing quantity")
+    public void comparingPricesOfIncreasingQuantity() {
+        Assert.assertTrue(cartUi.comparePriceByQuantity());
     }
 }

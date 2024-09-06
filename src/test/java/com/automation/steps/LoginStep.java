@@ -1,8 +1,8 @@
 package com.automation.steps;
 
-import com.automation.Screens.LoginScreen;
-import com.automation.UI.LoginUi;
-import com.automation.pages.LoginPage;
+import com.automation.pages.andriod.LoginScreen;
+import com.automation.pages.ui.LoginUi;
+import com.automation.pages.web.LoginPage;
 import com.automation.utils.ConfigReader;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

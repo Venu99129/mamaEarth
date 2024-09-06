@@ -1,8 +1,8 @@
 package com.automation.steps;
 
-import com.automation.Screens.LoggedHomeScreen;
-import com.automation.UI.LoggedHomeUi;
-import com.automation.pages.LoggedHomePage;
+import com.automation.pages.andriod.LoggedHomeScreen;
+import com.automation.pages.ui.LoggedHomeUi;
+import com.automation.pages.web.LoggedHomePage;
 import com.automation.utils.ConfigReader;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

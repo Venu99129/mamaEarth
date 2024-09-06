@@ -24,7 +24,7 @@ public class Hooks {
         if(scenario.isFailed()){
             CucumberReportManager.addaScreenshot();
         }
-        //DriverManager.getDriver().quit();
+        DriverManager.getDriver().quit();
     }
 
 

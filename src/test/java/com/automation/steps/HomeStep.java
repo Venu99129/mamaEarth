@@ -1,8 +1,9 @@
 package com.automation.steps;
 
-import com.automation.Screens.HomeScreen;
-import com.automation.UI.HomeUi;
-import com.automation.pages.HomePage;
+import com.automation.pages.andriod.HomeScreen;
+import com.automation.pages.andriod.SearchedScreen;
+import com.automation.pages.ui.HomeUi;
+import com.automation.pages.web.HomePage;
 import com.automation.utils.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -17,7 +18,7 @@ public class HomeStep {
         else homeui = new HomeScreen(); 
     }
 
-    @Given("user open the mamaEarth website")
+    @Given("user open the mamaEarth application")
     public void i_open_the_mamaEarth_website() {
         homeui.openTheMamaEarthWebsite();
     }
@@ -66,11 +67,18 @@ public class HomeStep {
 
     @When("user selects category type {string} and sub-category type {string}")
     public void userSelectsCategoryTypeAndSubCategoryType(String category, String subCategory) {
-        homeui.mouseOverOnMenuItem(category);
-        homeui.clickOnSubMenuItem(subCategory);
+
+        if(ConfigReader.getConfigValue("running.platform").contains("web")) {
+            homeui.mouseOverOnMenuItem(category);
+            homeui.clickOnSubMenuItem(subCategory);
+        }
+        else {
+            homeui.clickOnMenuItem(category);
+            new SearchedScreen().clickOnSubMenu(subCategory);
+        }
     }
 
-    @When("user clicks on a product in the home page")
+    @When("user clicks on a first product in the home page")
     public void userClicksOnAProductInTheHomeUi() {
         homeui.userClicksOnAProduct();
     }
