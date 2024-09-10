@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoggedHomeScreen extends BaseScreen implements LoggedHomeUi {
 
-    @FindBy(xpath = "//div[contains(@class,'cart-trigger')]")
+    @FindBy(xpath = "//android.view.ViewGroup/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView")
     WebElement cartIcon;
 
     @FindBy(xpath = "//android.widget.TextView[@text='Logout']")
@@ -29,20 +29,25 @@ public class LoggedHomeScreen extends BaseScreen implements LoggedHomeUi {
         handleOfferAlert();
         userIcon.click();
     }
+    public String verifyLoginWithUserIcon() {return "";}
+    public String verifyLoginWithBergerMenu() {
 
-    public String verifyLoginWithUserIcon() {
-
-        mouseoverOnUserIconOrBurgerMenu();
+        mouseoverOnBurgerMenu();
         String username  = userIconText.getText();
         System.out.println(userIconText.isDisplayed()+" "+userIcon.getText());
         if(username.trim().contains("Guest")) return "Login";
-        close_burgerMenu();
+        closeBurgerMenu();
         return username;
+    }
+
+    @Override
+    public void clickOnManageAddress() {
+
     }
 
     public void clickOnLogOut() {
         logoutLink.click();
-        close_burgerMenu();
+        closeBurgerMenu();
     }
 
     public void mouseoverOnUserIcon() {
@@ -53,7 +58,11 @@ public class LoggedHomeScreen extends BaseScreen implements LoggedHomeUi {
     }
 
     @Override
-    public void mouseoverOnUserIconOrBurgerMenu() {
+    public void mouseoverOnBurgerMenu() {
+        waitForElementToBeVisible("(//android.widget.ImageView/following-sibling::android.view.ViewGroup/android.widget.ImageView)[1]");
+        waitForElementToBeClickable("(//android.widget.ImageView/following-sibling::android.view.ViewGroup/android.widget.ImageView)[1]");
+
         driver.findElement(By.xpath("(//android.widget.ImageView/following-sibling::android.view.ViewGroup/android.widget.ImageView)[1]")).click();
+        System.out.println("first time clicked burger menu");
     }
 }

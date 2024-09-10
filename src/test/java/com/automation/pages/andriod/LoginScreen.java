@@ -36,7 +36,7 @@ public class LoginScreen extends BaseScreen implements LoginUi {
     public void waitUntilOTPEnter() {
         try {
             WebDriverWait wait = new WebDriverWait(driver,Duration.ofMinutes(1));
-            wait.until(driver -> !OTPField.getAttribute("value").isEmpty());
+            wait.until(driver -> !OTPField.getAttribute("text").isEmpty());
         }catch (Exception e) {
             e.printStackTrace();
         }

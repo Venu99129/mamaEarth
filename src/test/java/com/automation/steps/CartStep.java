@@ -12,7 +12,8 @@ import org.junit.Assert;
 public class CartStep {
     CartUi cartUi;
     public CartStep(){
-        if(ConfigReader.getConfigValue("running.platform").equals("web")) cartUi = new CartPage();
+        String runningPlatform = System.getProperty("env");
+        if(runningPlatform.equals("web")) cartUi = new CartPage();
         else cartUi = new CartScreen();
     }
 
@@ -46,7 +47,7 @@ public class CartStep {
     public void verifyProductVisibleInCartUi() {
         System.out.println(ConfigReader.getConfigValue("product.name")+"  "+cartUi.getProductName());
         Assert.assertEquals(ConfigReader.getConfigValue("product.name"),cartUi.getProductName());
-        if(ConfigReader.getConfigValue("running.platform").equals("web")) Assert.assertEquals(ConfigReader.getConfigValue("product.quantity"),cartUi.getProductQuantityInCart());
+        if(System.getProperty("env").equals("web")) Assert.assertEquals(ConfigReader.getConfigValue("product.quantity"),cartUi.getProductQuantityInCart());
     }
 
     @When("user clicks on place order button")
@@ -59,7 +60,7 @@ public class CartStep {
         cartUi.clickOnAddAddressBtn();
     }
 
-    @And("user enters valid address data")
+    @And("user enter valid address data in cart Page")
     public void userEntersValidAddressData() {
         cartUi.fillTheAddressDetails();
     }
@@ -70,12 +71,32 @@ public class CartStep {
     }
 
     @When("user select specific quantity {string} in cart Page")
-    public void userSelectSpecificQuantityInCartPage(String qty) {
+    public void userSelectSpecificQuantityInCartPage(String qty) throws InterruptedException {
         cartUi.selectQuantityByGivenQuantity(qty);
     }
 
     @Then("comparing prices of increasing quantity")
     public void comparingPricesOfIncreasingQuantity() {
         Assert.assertTrue(cartUi.comparePriceByQuantity());
+    }
+
+    @When("user clicks on proceed to pay button through cart page")
+    public void userClicksOnProceedToPayButtonThroughCartPage() {
+        cartUi.clickOnProceedToPayBtn();
+    }
+
+    @When("click on select address")
+    public void clickOnSelectAddress() {
+        cartUi.clickOnSelectAddressBtn();
+    }
+
+    @Then("remove the cart product")
+    public void removeTheCartProduct() {
+        cartUi.removeProduct();
+    }
+
+    @When("back to home page through cart page")
+    public void backToHomePageThroughCartPage() {
+        cartUi.backToHomePage();
     }
 }

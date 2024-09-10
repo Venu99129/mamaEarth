@@ -1,6 +1,6 @@
 Feature:user can make order the product
 
-  Scenario: verify user can make order product
+  Background: user can make product add to cart
     Given user open the mamaEarth application
     Then user verify the user is on the home page
     When user clicks on a first product in the home page
@@ -10,7 +10,26 @@ Feature:user can make order the product
     Then verify user is on cart page
     And verify product is added into the cart
     When user clicks on add address button
-    And user enters valid address data
+
+
+  @web @order
+  Scenario: verify user can make order product in web
+    And user enter valid address data in cart Page
     Then verify user is on address page
-    When user clicks on proceed to pay button
+    When user clicks on proceed to pay button in address page
     Then verify user is on payment page
+    When click on cash on delivery option
+    And place the order
+    Then verify the order confirmation
+
+
+  @mobile
+  Scenario: verify user can make order product in mobile
+    Then verify user is on address page
+    And user enter valid address in address page
+    When user clicks on proceed to pay button through cart page
+    Then verify user is on payment page
+    When click on cash on delivery option
+    And place the order
+    Then verify the order confirmation
+

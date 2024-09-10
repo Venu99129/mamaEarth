@@ -9,6 +9,8 @@ import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -17,8 +19,15 @@ public class BaseScreen {
 
     WebDriver driver;
     JavascriptExecutor js;
+    WebDriverWait wait;
 
-  
+    public BaseScreen(){
+        this.driver = DriverManager.getDriver();
+        js = (JavascriptExecutor) driver;
+        wait = new WebDriverWait(driver,Duration.ofSeconds(60));
+        PageFactory.initElements(driver,this);
+    }
+
     public boolean displayedElement(WebElement element){
         DriverManager.setImplicitlyWait(5);
         try {
@@ -30,18 +39,39 @@ public class BaseScreen {
         }
         return false;
     }
+    public boolean displayedElementUntilSeconds(WebElement element , int sec){
+        DriverManager.setImplicitlyWait(sec);
+        try {
+            if (element.isDisplayed()) return true;
+        }catch (Exception e){
+            return false;
+        }finally {
+            DriverManager.setImplicitlyWait(60);
+        }
+        return false;
+    }
     
     public void jsClick(WebElement element){
-        if(ConfigReader.getConfigValue("running.platform").equals("mobile"))
+        if(System.getProperty("env").equals("mobile"))
             ((AppiumDriver) driver ).executeScript("arguments[0].click();",element);
 
         else js.executeScript("arguments[0].click();",element);
     }
 
-    public BaseScreen(){
-        this.driver = DriverManager.getDriver();
-        js = (JavascriptExecutor) driver;
-        PageFactory.initElements(driver,this);
+    public void waitForElementToBeVisible(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+    public void waitForElementToBeVisible(String  xpath) {
+        By locate = By.xpath(xpath);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locate));
+    }
+
+    public void waitForElementToBeClickable(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+    public void waitForElementToBeClickable(String xpath) {
+        By locate = By.xpath(xpath);
+        wait.until(ExpectedConditions.elementToBeClickable(locate));
     }
 
   
@@ -65,7 +95,7 @@ public class BaseScreen {
 
     }
 
-    public void close_burgerMenu(){
+    public void closeBurgerMenu(){
         int x = driver.manage().window().getSize().getWidth();
         int y = driver.manage().window().getSize().getHeight();
 
@@ -86,6 +116,20 @@ public class BaseScreen {
                 .addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
                 .addAction(new Pause(finger1, Duration.ofSeconds(2)))
                 .addAction(finger1.createPointerMove(Duration.ofSeconds(1), PointerInput.Origin.viewport(), endX, endY))
+                .addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        ((AppiumDriver) driver).perform(Collections.singletonList(sequence));
+    }
+
+    public void tabClick(WebElement element){
+        int x = element.getLocation().x+element.getSize().getWidth()/2;
+        int y = element.getLocation().y+element.getSize().getHeight()/2;
+
+        PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger1");
+        Sequence sequence = new Sequence(finger1, 1)
+                .addAction(finger1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), x, y))
+                .addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+                .addAction(new Pause(finger1, Duration.ofSeconds(2)))
                 .addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         ((AppiumDriver) driver).perform(Collections.singletonList(sequence));

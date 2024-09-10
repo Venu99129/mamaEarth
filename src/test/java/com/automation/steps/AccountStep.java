@@ -3,14 +3,14 @@ package com.automation.steps;
 import com.automation.pages.andriod.AccountScreen;
 import com.automation.pages.ui.AccountUi;
 import com.automation.pages.web.AccountPage;
-import com.automation.utils.ConfigReader;
 import io.cucumber.java.en.When;
 
 public class AccountStep {
     AccountUi accountUi;
 
     public AccountStep(){
-        if(ConfigReader.getConfigValue("running.platform").equals("web")) accountUi = new AccountPage();
+        String runningPlatform = System.getProperty("env");
+        if(runningPlatform.equals("web")) accountUi = new AccountPage();
         else accountUi = new AccountScreen();
     }
 

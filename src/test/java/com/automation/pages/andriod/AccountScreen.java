@@ -17,7 +17,8 @@ public class AccountScreen extends BaseScreen implements AccountUi {
     WebElement backArrow;
 
     public void clickOnClosePoolBtn(){
-        if(displayedElement(closePoolBtn)){
+
+        if(displayedElementUntilSeconds(closePoolBtn,20)){
             closePoolBtn.click();
         }
     }

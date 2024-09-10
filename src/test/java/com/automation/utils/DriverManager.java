@@ -11,7 +11,9 @@ public class DriverManager {
     static WebDriver driver;
 
     public static void createDriver() {
-        if (ConfigReader.getConfigValue("running.platform").equals("mobile")) {
+       String runningPlatform = System.getProperty("env");
+
+        if (runningPlatform.equals("mobile")) {
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setCapability("platformName", ConfigReader.getConfigValue("platform.name"));
             caps.setCapability("appium:app", ConfigReader.getConfigValue("app.path"));

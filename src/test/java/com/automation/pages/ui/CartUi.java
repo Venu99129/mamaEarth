@@ -13,7 +13,13 @@ public interface CartUi {
     public void fillTheAddressDetails();
     public void removeProduct();
 
-    void selectQuantityByGivenQuantity(String qty);
+    void selectQuantityByGivenQuantity(String qty) throws InterruptedException;
 
     boolean comparePriceByQuantity();
+
+    void clickOnProceedToPayBtn();
+
+    void clickOnSelectAddressBtn();
+
+    void backToHomePage();
 }

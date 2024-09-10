@@ -1,10 +1,10 @@
 package com.automation.steps;
 
+import com.automation.pages.andriod.BaseScreen;
 import com.automation.pages.andriod.HomeScreen;
 import com.automation.pages.andriod.SearchedScreen;
 import com.automation.pages.ui.HomeUi;
 import com.automation.pages.web.HomePage;
-import com.automation.utils.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,7 +14,8 @@ public class HomeStep {
     HomeUi homeui;
 
     public HomeStep(){
-        if(ConfigReader.getConfigValue("running.platform").equals("web")) homeui = new HomePage();
+        String runningPlatform = System.getProperty("env");
+        if(runningPlatform.equals("web")) homeui = new HomePage();
         else homeui = new HomeScreen(); 
     }
 
@@ -37,6 +38,7 @@ public class HomeStep {
     @Then("user should see the logged out")
     public void iShouldSeeTheLoggedOut() {
         Assert.assertEquals("Login",homeui.verifyLoginWithUserIcon());
+        if(System.getProperty("env").equals("mobile")) new BaseScreen().closeBurgerMenu();
     }
 
     @When("the user clicks on the {string} menu item")
@@ -68,7 +70,7 @@ public class HomeStep {
     @When("user selects category type {string} and sub-category type {string}")
     public void userSelectsCategoryTypeAndSubCategoryType(String category, String subCategory) {
 
-        if(ConfigReader.getConfigValue("running.platform").contains("web")) {
+        if(System.getProperty("env").contains("web")) {
             homeui.mouseOverOnMenuItem(category);
             homeui.clickOnSubMenuItem(subCategory);
         }

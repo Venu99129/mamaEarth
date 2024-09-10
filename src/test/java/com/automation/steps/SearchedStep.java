@@ -3,16 +3,17 @@ package com.automation.steps;
 import com.automation.pages.andriod.SearchedScreen;
 import com.automation.pages.ui.SearchedUi;
 import com.automation.pages.web.SearchedPage;
-import com.automation.utils.ConfigReader;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class SearchedStep {
     SearchedUi searchedUi;
 
     public SearchedStep(){
-        if(ConfigReader.getConfigValue("running.platform").equals("web")) searchedUi = new SearchedPage();
+        String runningPlatform = System.getProperty("env");
+        if(runningPlatform.equals("web")) searchedUi = new SearchedPage();
         else searchedUi = new SearchedScreen();
     }
 
@@ -42,5 +43,10 @@ public class SearchedStep {
     @Then("verify sub-product type {string} of products are displayed")
     public void verifySubProductTypeOfProductsAreDisplayed(String category) {
         Assert.assertTrue(searchedUi.verifyAllProductsMatchesSearchedText(category));
+    }
+
+    @When("click first product in searched products")
+    public void clickFirstProductInSearchedProducts() {
+        searchedUi.clickOnFirstProduct();
     }
 }

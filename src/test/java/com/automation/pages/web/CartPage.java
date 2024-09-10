@@ -2,9 +2,13 @@ package com.automation.pages.web;
 
 import com.automation.pages.ui.CartUi;
 import com.automation.utils.ConfigReader;
+import com.automation.utils.CucumberReportManager;
 import com.automation.utils.DriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.text.DecimalFormat;
 
 public class CartPage extends BasePage implements CartUi {
@@ -15,7 +19,7 @@ public class CartPage extends BasePage implements CartUi {
     @FindBy(xpath = " //div[@class='message after']/following-sibling::div")
     WebElement applyCoupon;
 
-    @FindBy(css=".sc-jGxEUC.kaekRd")
+    @FindBy(css = ".sc-jGxEUC.kaekRd")
     WebElement couponAddedPopup;
 
     @FindBy(className = "coupon-text")
@@ -54,6 +58,9 @@ public class CartPage extends BasePage implements CartUi {
     @FindBy(className = "item-quantity")
     WebElement productQuantity;
 
+    @FindBy(xpath = "//div[text()='Select address']")
+    WebElement selectAddress;
+
     @Override
     public boolean verifyCartUi() {
         return cartText.isDisplayed();
@@ -63,15 +70,15 @@ public class CartPage extends BasePage implements CartUi {
         DriverManager.setImplicitlyWait(10);
         try {
             applyCoupon.click();
-        }
-        catch (Exception ignored){}
-        finally {
+        } catch (Exception e) {
+            CucumberReportManager.addaLog("no such coupons available for the product ");
+        } finally {
             DriverManager.setImplicitlyWait(60);
         }
 
     }
 
-    public boolean verifyCouponApplied(){
+    public boolean verifyCouponApplied() {
 
         DriverManager.setImplicitlyWait(10);
         try {
@@ -87,7 +94,7 @@ public class CartPage extends BasePage implements CartUi {
                 }
             }
             return false;
-        }catch (Exception e){
+        } catch (Exception e) {
             return true;
         }
     }
@@ -96,35 +103,35 @@ public class CartPage extends BasePage implements CartUi {
         double totalPrice = filterAmount(totalAmount.getText());
         double shippingPrice = 0;
         double onlineDiscountPrice = 0;
-        if(!shippingAmount.getText().contains("Free"))
-            shippingPrice = filterAmount(finalAmount.getText());
+        if (!shippingAmount.getText().contains("Free"))
+            shippingPrice = filterAmount(shippingAmount.getText());
 
-        if(displayedElement(onlineDiscount)) onlineDiscountPrice = filterAmount(onlineDiscount.getText());
+        if (displayedElement(onlineDiscount)) onlineDiscountPrice = filterAmount(onlineDiscount.getText());
 
         double finalPrice = filterAmount(finalAmount.getText());
 
         double discountPrice = 0;
-        try{
+        try {
             String offPrice = ConfigReader.getConfigValue("offerAmount");
             discountPrice = filterAmount(offPrice);
-        }catch (Exception e){
+        } catch (Exception e) {
             discountPrice = filterAmount(disCountAmount.getText());
         }
 
-        //System.out.println(totalPrice+" "+shippingPrice+" "+onlineDiscountPrice+" "+discountPrice);
-        double tempFinal = totalPrice+shippingPrice-onlineDiscountPrice-discountPrice;
+        System.out.println(totalPrice + " " + shippingPrice + " " + onlineDiscountPrice + " " + discountPrice);
+        double tempFinal = totalPrice + shippingPrice - onlineDiscountPrice - discountPrice;
 
 
         DecimalFormat df = new DecimalFormat("#.00");
         tempFinal = Double.parseDouble(df.format(tempFinal));
-        //System.out.println(tempFinal);
-        //System.out.println(finalPrice);
+        System.out.println(tempFinal);
+        System.out.println(finalPrice);
 
         return finalPrice == tempFinal;
     }
 
     public boolean verifySameVariantIsAddedIntoCart() {
-        System.out.println(productPrice.getText()+"     "+ ConfigReader.getConfigValue("product.price"));
+        System.out.println(productPrice.getText() + "     " + ConfigReader.getConfigValue("product.price"));
         return ConfigReader.getConfigValue("product.price").contains(productPrice.getText());
     }
 
@@ -132,7 +139,7 @@ public class CartPage extends BasePage implements CartUi {
         return productNameInCart.getText();
     }
 
-    public String getProductQuantityInCart(){
+    public String getProductQuantityInCart() {
         return productQuantity.getText();
     }
 
@@ -167,6 +174,8 @@ public class CartPage extends BasePage implements CartUi {
     @FindBy(xpath = "//button[text()='SAVE ADDRESS']")
     WebElement saveAddress;
 
+    @FindBy(xpath = "//img[@alt='logo']")
+    WebElement mamaEarthLogo;
 
 
     public void fillTheAddressDetails() {
@@ -184,11 +193,18 @@ public class CartPage extends BasePage implements CartUi {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
+        CucumberReportManager.addaScreenshot();
         jsClick(saveAddress);
     }
 
     public void removeProduct() {
+        int qty = Integer.parseInt(productQuantity.getText().trim());
+        while (qty != 1) {
+            System.out.println(qty);
+            minusBtn.click();
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[name()='svg']/*[name()='circle']")));
+            qty = Integer.parseInt(driver.findElement(By.className("item-quantity")).getText().trim());
+        }
         minusBtn.click();
     }
 
@@ -201,4 +217,23 @@ public class CartPage extends BasePage implements CartUi {
     public boolean comparePriceByQuantity() {
         return false;
     }
+
+    @Override
+    public void clickOnProceedToPayBtn() {
+
+    }
+
+    @FindBy(xpath = "//div[@class='proceed-text']")
+    WebElement selectAddressBtn;
+
+    @Override
+    public void clickOnSelectAddressBtn() {
+        clickAnyway(selectAddressBtn);
+    }
+
+    @Override
+    public void backToHomePage() {
+        mamaEarthLogo.click();
+    }
+
 }

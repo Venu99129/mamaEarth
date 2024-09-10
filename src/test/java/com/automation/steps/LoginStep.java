@@ -3,7 +3,6 @@ package com.automation.steps;
 import com.automation.pages.andriod.LoginScreen;
 import com.automation.pages.ui.LoginUi;
 import com.automation.pages.web.LoginPage;
-import com.automation.utils.ConfigReader;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -13,8 +12,9 @@ public class LoginStep {
     LoginUi loginui;
 
     public LoginStep(){
-        if(ConfigReader.getConfigValue("running.platform").equals("mobile") ) loginui = new LoginScreen();
-        else loginui = new LoginPage();
+        String runningPlatform = System.getProperty("env");
+        if(runningPlatform.equals("web")) loginui = new LoginPage();
+        else loginui = new LoginScreen();
     }
 
     @Then("user should see the login page")

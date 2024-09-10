@@ -20,9 +20,6 @@ public class HomeScreen extends BaseScreen implements HomeUi {
     @FindBy(xpath = "//android.view.ViewGroup/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView")
     WebElement cartIcon;
 
-    @FindBy(xpath = "//android.widget.ImageView/following-sibling::android.view.ViewGroup[1]")
-    WebElement bergerMenu;
-
     @FindBy(xpath = "//android.widget.TextView[@text='View Cart']")
     WebElement cartPopUp;
 
@@ -55,7 +52,11 @@ public class HomeScreen extends BaseScreen implements HomeUi {
     }
 
     public String verifyLoginWithUserIcon() {
-        bergerMenu.click();
+        waitForElementToBeVisible("(//android.widget.ImageView/following-sibling::android.view.ViewGroup/android.widget.ImageView)[1]");
+        waitForElementToBeClickable("(//android.widget.ImageView/following-sibling::android.view.ViewGroup/android.widget.ImageView)[1]");
+
+        driver.findElement(By.xpath("(//android.widget.ImageView/following-sibling::android.view.ViewGroup/android.widget.ImageView)[1]")).click();
+
         if (userIconText.getText().trim().contains("Guest")) return "Login";
         return userIconText.getText();
     }

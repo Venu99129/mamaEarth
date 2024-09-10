@@ -6,4 +6,5 @@ public interface SearchedUi {
     public String verifySearchedUi();
     public boolean verifyAllProductsMatchesSearchedText(String searchedText);
 
+    void clickOnFirstProduct();
 }

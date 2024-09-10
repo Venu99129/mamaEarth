@@ -6,14 +6,14 @@ Feature: Variant Functionality
     When user clicks on a first product in the home page
     Then verify user is on product page
 
-  @web @mobile
+  @web @mobile @product-page
   Scenario: verify product adding throw product page
     And clicks on add to cart button in product page
     When user click on cart icon in product page
     Then verify user is on cart page
     Then verify product is added into the cart
 
-  @web
+  @web @product-page
   Scenario: verify product adding given quantity
     Then user select specific quantity "3"
     And clicks on add to cart button in product page
@@ -21,7 +21,7 @@ Feature: Variant Functionality
     Then verify user is on cart page
     Then verify product is added into the cart
 
-  @web @mobile
+  @web @mobile @product-page
   Scenario: Verify same variant is added into the cart
     When user selects the other variant
     And clicks on add to cart button in product page

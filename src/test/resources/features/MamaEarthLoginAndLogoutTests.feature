@@ -8,17 +8,17 @@ Feature: User Login and Logout
     When user log in with mobile number "user.mobileNumber"
     Then user enter OTP manually
 
-  @web
+  @web @web-login-logout
   Scenario: User login and logout successfully in web
     Then user should be logged in successfully
-    When user mouse over on the user icon or burger menu
+    When user mouse over on the user icon
     And user select logout
     Then user should see the logged out
 
-    @web @mobile
+    @mobile
   Scenario: User login and logout successfully in mobile
     When close the account page
     Then user should be logged in successfully
-    When user mouse over on the user icon or burger menu
+    When user click on the burger menu
     And user select logout
     Then user should see the logged out

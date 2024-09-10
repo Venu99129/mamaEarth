@@ -5,7 +5,7 @@ Feature: Menu Items Test Activity
     When user verify the user is on the home page
 
 
-  @web @mobile
+  @web @mobile @menu
   Scenario Outline: Verify menu items and their associated product categories
     When the user clicks on the "<itemName>" menu item
     Then the user should be on the "<itemName>" page
@@ -19,7 +19,7 @@ Feature: Menu Items Test Activity
       | Body     |
       | Baby     |
 
-  @web
+  @web  @menu
   Scenario Outline: Verify menu sub categories in web
     When user selects category type "<category>" and sub-category type "<sub-category>"
     Then the user should be on the "<sub-category>" page

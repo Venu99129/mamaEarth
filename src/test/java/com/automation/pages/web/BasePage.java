@@ -4,14 +4,19 @@ import com.automation.utils.DriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class BasePage {
 
     WebDriver driver;
     JavascriptExecutor js;
+    WebDriverWait wait;
 
     public boolean displayedElement(WebElement element){
-        DriverManager.setImplicitlyWait(0);
+        DriverManager.setImplicitlyWait(5);
         try {
             if (element.isDisplayed()) return true;
         }catch (Exception e){
@@ -31,6 +36,7 @@ public class BasePage {
     public BasePage(){
         this.driver = DriverManager.getDriver();
         js = (JavascriptExecutor) driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         PageFactory.initElements(driver,this);
     }
 
@@ -59,8 +65,9 @@ public class BasePage {
   
     public void handleOfferAlert() {
         try {
-            DriverManager.setImplicitlyWait(5);
+            wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             WebElement alert = driver.findElement(By.cssSelector(".wzrk-alert.wiz-show-animate"));
+            wait.until(ExpectedConditions.visibilityOf(alert));
             WebElement cancelBtn = driver.findElement(By.id("wzrk-cancel-id"));
 
             if (displayedElement(alert)) {
@@ -80,7 +87,7 @@ public class BasePage {
         return Double.parseDouble(amount);
     }
   
-    public void clickAnyway(@org.jetbrains.annotations.NotNull WebElement element){
+    public void clickAnyway( WebElement element){
         try {
             if(element.isDisplayed()) element.click();
         }catch (ElementNotInteractableException e2){jsClick(element);}

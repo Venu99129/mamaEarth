@@ -83,7 +83,12 @@ public class CartScreen extends BaseScreen implements CartUi {
 
     @FindBy(xpath = "//android.widget.TextView[@text='Shipping']/following-sibling::android.view.ViewGroup/android.widget.TextView")
     WebElement shippingAmount;
+    
+    @FindBy(xpath = "//android.widget.TextView[@text='Add address']")
+    WebElement addAddressBtn;
 
+    @FindBy(xpath = "//android.widget.TextView[@text='Proceed to pay']")
+    WebElement proceedToPayBtn;
 
     @Override
     public boolean verifyCartAmountWithCouponAmount() {
@@ -150,6 +155,7 @@ public class CartScreen extends BaseScreen implements CartUi {
 
     @Override
     public void clickOnAddAddressBtn() {
+        addAddressBtn.click();
 
     }
 
@@ -163,23 +169,28 @@ public class CartScreen extends BaseScreen implements CartUi {
     }
 
     @Override
-    public void selectQuantityByGivenQuantity(String qty) {
-        int quantity = Integer.parseInt(productQuantity.getText().trim());
+    public void selectQuantityByGivenQuantity(String qty) throws InterruptedException {
         int expectedQuantity =  Integer.parseInt(qty);
-
-        do {
-            System.out.println(quantity);
-            if (expectedQuantity > quantity) {
-                plusIcon.click();
-                productQuantity = driver.findElement(By.xpath("//android.widget.TextView[@text='Cart details']/../../android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView/../../following-sibling::android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView"));
-                quantity = Integer.parseInt(productQuantity.getText().trim());
-            }
-            if (expectedQuantity < quantity) {
-                minusIcon.click();
-                productQuantity = driver.findElement(By.xpath("//android.widget.TextView[@text='Cart details']/../../android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView/../../following-sibling::android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView"));
-                quantity = Integer.parseInt(productQuantity.getText().trim());
-            }
-        } while (expectedQuantity != quantity);
+        if(expectedQuantity>0) {
+            int quantity = Integer.parseInt(productQuantity.getText().trim());
+            if(expectedQuantity != quantity) {
+                do {
+                    System.out.println(quantity);
+                    if (expectedQuantity > quantity) {
+                        plusIcon.click();
+                        Thread.sleep(3000);
+                        productQuantity = driver.findElement(By.xpath("//android.widget.TextView[@text='Cart details']/../../android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView/../../following-sibling::android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView"));
+                        quantity = Integer.parseInt(productQuantity.getText().trim());
+                    }
+                    if (expectedQuantity < quantity) {
+                        minusIcon.click();
+                        Thread.sleep(3000);
+                        productQuantity = driver.findElement(By.xpath("//android.widget.TextView[@text='Cart details']/../../android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView/../../following-sibling::android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView"));
+                        quantity = Integer.parseInt(productQuantity.getText().trim());
+                    }
+                } while (expectedQuantity != quantity);
+            }else System.out.println("defaults your given quantity is available for the product");
+        }
     }
 
     @Override
@@ -202,5 +213,20 @@ public class CartScreen extends BaseScreen implements CartUi {
         System.out.println(expectedAmount);
 
         return expectedAmount == itemPrice;
+    }
+
+    @Override
+    public void clickOnProceedToPayBtn() {
+        proceedToPayBtn.click();
+    }
+
+    @Override
+    public void clickOnSelectAddressBtn() {
+        //selectAddress.click();
+    }
+
+    @Override
+    public void backToHomePage() {
+
     }
 }

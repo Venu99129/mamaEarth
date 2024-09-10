@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import java.util.List;
 
 public class HomePage extends BasePage implements HomeUi {
@@ -39,6 +38,11 @@ public class HomePage extends BasePage implements HomeUi {
 
     public void openTheMamaEarthWebsite() {
         driver.get(ConfigReader.getConfigValue("base.url"));
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         handleOfferAlert();
     }
 
@@ -48,16 +52,12 @@ public class HomePage extends BasePage implements HomeUi {
     }
 
     public void clickOnUserIcon() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         handleOfferAlert();
         userIcon.click();
     }
 
     public String verifyLoginWithUserIcon() {
+        handleOfferAlert();
         return userIconText.getText();
     }
 

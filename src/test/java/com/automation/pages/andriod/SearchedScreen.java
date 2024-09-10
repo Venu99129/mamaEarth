@@ -89,6 +89,14 @@ public class SearchedScreen extends BaseScreen implements SearchedUi {
         return true;
     }
 
+    @Override
+    public void clickOnFirstProduct() {
+        for(WebElement ele: productNames){
+            ele.click(); break;
+        }
+    }
+
+
     public void clickOnSubMenu(String subCategory) {
         while(true){
             List<String> subMenu = subMenuItems.stream().map(WebElement::getText).toList();

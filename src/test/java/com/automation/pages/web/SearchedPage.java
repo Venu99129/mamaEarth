@@ -27,6 +27,7 @@ public class SearchedPage extends BasePage implements SearchedUi {
 
 
     public boolean verifyAllProductsInUnDerCategory() {
+        scrollWindowOrSlide(500,500);
         List<String> categoryProducts = new ArrayList<>();
         String itemCat = ConfigReader.getConfigValue("itemCat");
         switch (itemCat) {
@@ -37,17 +38,19 @@ public class SearchedPage extends BasePage implements SearchedUi {
             case "Baby" -> categoryProducts.addAll(DataStore.babyCareProducts);
         }
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
 
         List<String> prodNames = productNames.stream().map(WebElement::getText).filter(s->!s.isEmpty()).toList();
+        System.out.println("product names :"+prodNames);
         boolean outerFlag = true;
         for(String prodName:prodNames){
             boolean inFlag = true;
             for(int i =0;i<categoryProducts.size();i++){
+                System.out.println("log 1:  "+prodName+"    "+categoryProducts.get(i));
                 if(prodName.contains(categoryProducts.get(i))){
                     break;
                 }
@@ -69,8 +72,10 @@ public class SearchedPage extends BasePage implements SearchedUi {
     }
 
     public boolean verifyAllProductsMatchesSearchedText(String searchedText) {
+        scrollWindowOrSlide(100,100);
         List<String> prodNames = productNames.stream().map(WebElement::getText).filter(s->!s.isEmpty()).toList();
         for (String prodName : prodNames) {
+            System.out.println(prodName);
             if (!prodName.toLowerCase().contains(searchedText.toLowerCase())) {
                 if(searchedText.equals("Illumination") && prodName.toLowerCase().contains("Illuminating".toLowerCase())) continue;
 
@@ -88,5 +93,14 @@ public class SearchedPage extends BasePage implements SearchedUi {
         }
         return true;
     }
+
+    @Override
+    public void clickOnFirstProduct() {
+        for(WebElement ele: productNames){
+            ele.click();
+            break;
+        }
+    }
+
 
 }

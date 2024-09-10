@@ -23,6 +23,9 @@ public class LoggedHomePage extends BasePage implements LoggedHomeUi {
     @FindBy(xpath = "//div[contains(@class,'user-account-trigger isLoggedIn')]/div[2]")
     WebElement userIconText;
 
+    @FindBy(xpath = "//p[normalize-space()='Manage Address']")
+    WebElement manageAddressLink;
+
 
 
 
@@ -43,7 +46,18 @@ public class LoggedHomePage extends BasePage implements LoggedHomeUi {
         cartIcon.click();
     }
 
-    public void mouseoverOnUserIconOrBurgerMenu() {
+    public void mouseoverOnUserIcon() {
         mouseOverOn(userIcon);
+    }
+    public void mouseoverOnBurgerMenu(){}
+
+    @Override
+    public String verifyLoginWithBergerMenu() {
+        return "";
+    }
+
+    @Override
+    public void clickOnManageAddress() {
+        manageAddressLink.click();
     }
 }

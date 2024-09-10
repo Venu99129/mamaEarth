@@ -7,5 +7,10 @@ public interface LoggedHomeUi {
     public String verifyLoginWithUserIcon();
     public void clickOnLogOut();
     public void clickOnCartIcon();
-    public void mouseoverOnUserIconOrBurgerMenu();
+    public void mouseoverOnUserIcon();
+    public void mouseoverOnBurgerMenu();
+
+    String verifyLoginWithBergerMenu();
+
+    void clickOnManageAddress();
 }

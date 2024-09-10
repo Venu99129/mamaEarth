@@ -1,5 +1,6 @@
 package com.automation.pages.web;
 
+import com.automation.pages.ui.AddressUi;
 import com.automation.utils.ConfigReader;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class AddressPage extends BasePage {
+public class AddressPage extends BasePage implements AddressUi {
 
     @FindBy(xpath = "//div[@class='step-container']/div[contains(text(),'Address')]")
     WebElement  addressText;
@@ -47,6 +48,15 @@ public class AddressPage extends BasePage {
         Assert.assertEquals("Work",deliveryType.getText());
         String address = ConfigReader.getConfigValue("address.address")+", "+ConfigReader.getConfigValue("address.city")+", "+ConfigReader.getConfigValue("address.state")+" - "+ConfigReader.getConfigValue("address.postal");
         Assert.assertEquals(address,addressInWeb.getText());
+    }
+
+    @Override
+    public void fillAddressDetails() {
+
+    }
+
+    @Override
+    public void fillAddressDetailsWithLogin() {
 
     }
 }
