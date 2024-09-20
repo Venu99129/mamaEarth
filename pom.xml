@@ -70,7 +70,7 @@
                                 </goals>
                                 <configuration>
                                     <projectName>FoundationCucumber</projectName>
-                                    <outputDirectory>Reports/Web-CucumberReport</outputDirectory>
+                                    <outputDirectory>Reports/Web-CucumberReport-2</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>

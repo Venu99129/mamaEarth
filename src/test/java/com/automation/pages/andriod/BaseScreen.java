@@ -1,6 +1,5 @@
 package com.automation.pages.andriod;
 
-import com.automation.utils.ConfigReader;
 import com.automation.utils.DriverManager;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.*;
@@ -87,6 +86,8 @@ public class BaseScreen {
             if (displayedElement(notificationAllowBtn)) {
                 notificationAllowBtn.click();
             }
+        }catch (Exception ignored){}
+        try{
             WebElement skipAdd = driver.findElement(By.xpath("//android.widget.TextView[@text='SKIP']"));
             if(displayedElement(skipAdd)){
                 skipAdd.click();
