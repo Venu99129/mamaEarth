@@ -6,6 +6,8 @@ import com.automation.utils.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -44,23 +46,21 @@ public class CartScreen extends BaseScreen implements CartUi {
     @Override
     public void clickOnFirstCouponBtn() {
         DriverManager.setImplicitlyWait(5);
-        while (true) {
-            System.out.println("in while");
+        for (int attempt = 0; attempt < 5; attempt++) {
+            System.out.println("Attempt: " + (attempt + 1));
+
             List<WebElement> applyButtons = driver.findElements(By.xpath("//android.widget.TextView[@text='Apply']"));
-            boolean inFlag = false;
+
             for (WebElement ele : applyButtons) {
-                System.out.println("in for");
-                System.out.println(ele.isEnabled());
-                if (ele.isDisplayed()) {
-                    ele.click();
-                    try {
-                        if (driver.findElement(By.xpath("//android.widget.TextView[@text='Woohoo! Thanks']")).isDisplayed())
-                            inFlag = true;
-                        break;
-                    }catch (Exception ignored){}
-                }
+                try {
+                    if (ele.isDisplayed() && ele.isEnabled()) {
+                        ele.click();
+                        // Check for success message
+                        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='Woohoo! Thanks']")));
+                        return; // Exit if successful
+                    }
+                } catch (Exception e) { System.out.println("Error clicking button: " + e.getMessage());}
             }
-            if (inFlag) break;
             scrollOrSwipe(900, 600,  200, 600);
         }
         DriverManager.setImplicitlyWait(60);
